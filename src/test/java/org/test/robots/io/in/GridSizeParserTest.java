@@ -1,10 +1,11 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.test.robots.domain.Grid;
 import org.test.robots.exceptions.ParseException;
+import org.test.robots.io.in.CoordinateParser;
+import org.test.robots.io.in.GridSizeParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

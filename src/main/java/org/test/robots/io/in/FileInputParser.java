@@ -1,6 +1,7 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.test.robots.domain.Pair;
 import org.test.robots.domain.input.RobotsListInput;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class FileInputParser implements Parser<String, RobotsListInput> {
 
     private static int GRID_SIZE_LINE = 0;
@@ -31,6 +33,7 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
      */
     public RobotsListInput parse(String filename) throws IOException {
         var lines = fileInputStringParser.parse(filename);
+        logInput(lines);
 
         var grid = gridSizeParser.parse(lines.get(GRID_SIZE_LINE));
         var robotInputList = groupByPairs(lines.subList(GRID_SIZE_LINE + 1, lines.size()))
@@ -40,6 +43,7 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
 
         return RobotsListInput.with(grid, robotInputList);
     }
+
 
     /**
      * Groups robots lines and return a list of Pairs of [position, instruction]
@@ -59,6 +63,7 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
         return pairList;
     }
 
+
     /**
      * Groups the position and instruction lines of a robot in a Pair
      *
@@ -69,7 +74,14 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
         return Pair.of(lines.get(POSITION_LINE), lines.get(INSTRUCTIONS_LINE));
     }
 
+
     private boolean isThereNextPair(final List<String> lines) {
         return lines.size() >= LINES_PER_ROBOT;
+    }
+
+
+    private void logInput(final List<String> lines) {
+        log.info("\n------------------ INPUT ---------------------");
+        lines.stream().forEach(log::info);
     }
 }

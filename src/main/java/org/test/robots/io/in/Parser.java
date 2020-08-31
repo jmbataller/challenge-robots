@@ -1,4 +1,4 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,9 @@ import org.test.robots.domain.Pair;
 import org.test.robots.domain.Point;
 import org.test.robots.domain.Position;
 import org.test.robots.domain.input.RobotInput;
+import org.test.robots.io.in.InstructionsParser;
+import org.test.robots.io.in.PositionParser;
+import org.test.robots.io.in.RobotInputParser;
 
 import java.util.List;
 

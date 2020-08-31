@@ -1,8 +1,9 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.test.robots.io.in.FileInputStringParser;
 
 import java.io.IOException;
 

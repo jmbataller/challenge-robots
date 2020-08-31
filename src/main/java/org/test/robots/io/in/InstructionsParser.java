@@ -1,4 +1,4 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

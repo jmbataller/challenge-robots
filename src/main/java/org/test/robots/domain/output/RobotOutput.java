@@ -11,4 +11,8 @@ public class RobotOutput {
     private final Position position;
     private final boolean lost;
 
+    @Override
+    public String toString() {
+        return lost ? position.toString().concat(" LOST") : position.toString();
+    }
 }

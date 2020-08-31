@@ -1,4 +1,4 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;

@@ -1,9 +1,8 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.test.robots.domain.Grid;
 import org.test.robots.domain.Orientation;
 import org.test.robots.domain.Point;
 import org.test.robots.domain.Position;

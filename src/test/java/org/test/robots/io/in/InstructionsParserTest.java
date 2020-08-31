@@ -1,11 +1,11 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.test.robots.domain.Instruction;
 import org.test.robots.exceptions.ParseException;
+import org.test.robots.io.in.InstructionsParser;
 
 import java.util.List;
 

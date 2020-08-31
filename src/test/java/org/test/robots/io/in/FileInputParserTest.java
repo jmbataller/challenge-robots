@@ -1,9 +1,13 @@
-package org.test.robots.io;
+package org.test.robots.io.in;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.test.robots.domain.*;
 import org.test.robots.domain.input.RobotInput;
+import org.test.robots.io.in.FileInputParser;
+import org.test.robots.io.in.FileInputStringParser;
+import org.test.robots.io.in.GridSizeParser;
+import org.test.robots.io.in.RobotInputParser;
 
 import java.io.IOException;
 import java.util.List;
