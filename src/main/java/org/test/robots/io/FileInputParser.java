@@ -16,6 +16,7 @@ public interface FileInputParser extends Parser<String, RobotsListInput> {
     @Override
     default RobotsListInput parse(String filename) throws IOException {
         List<String> lines = FileInputStringParser.parse(filename);
+        var grid = GridSizeParser.parse(lines.get(0));
         return null;
     }
 }

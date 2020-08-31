@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileInputParserTest implements FileInputParser {
@@ -22,7 +23,7 @@ public class FileInputParserTest implements FileInputParser {
     @Test
     @DisplayName("attempt to read a file that doesn't exist")
     void testReadNonExistingFile() {
-        Assertions.assertThatThrownBy(() -> parse("invalid/file/path"))
+        assertThatThrownBy(() -> parse("invalid/file/path"))
                 .isInstanceOf(IOException.class);
     }
 }
