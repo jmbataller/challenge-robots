@@ -57,6 +57,7 @@ public class RobotProcessor {
             case R:
                 newPosition = orientedInstruction.right(position);
                 break;
+            default: newPosition = position;
         }
         return grid.isLost(newPosition.getPoint())
                 ? RobotOutput.with(currentPosition.getPosition(), true)

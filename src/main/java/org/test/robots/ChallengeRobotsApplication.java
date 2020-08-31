@@ -27,8 +27,8 @@ public class ChallengeRobotsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (Objects.isNull(args) || args.length == 0) {
-            System.out.println("Usage:");
-            System.out.println("java -jar challenge-robots.jar <file_path>");
+            log.info("Usage:");
+            log.info("java -jar challenge-robots.jar <file_path>");
             System.exit(-1);
         }
 

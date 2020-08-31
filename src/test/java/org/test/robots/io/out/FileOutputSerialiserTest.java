@@ -15,6 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class FileOutputSerialiserTest {
 
     private static final String RELATIVE_PATH = "src/test/resources/samples/output/";
@@ -33,7 +35,7 @@ public class FileOutputSerialiserTest {
         underTest.serialise(SAMPLE_FILE_ONE_ROBOT, output);
 
         var outputFileLines = loadFile(SAMPLE_FILE_ONE_ROBOT);
-        Assertions.assertThat(outputFileLines).contains(
+        assertThat(outputFileLines).contains(
                 output.getRobots().get(0).toString(),
                 output.getRobots().get(1).toString()
         );
