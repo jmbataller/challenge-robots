@@ -2,17 +2,17 @@ package org.test.robots.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.test.robots.domain.instructions.*;
 
 @AllArgsConstructor
+@Getter
 public enum Orientation {
 
-    N("N", "W", "E"),
-    E("E", "N", "S"),
-    S("S", "E", "W"),
-    W("W", "S", "N");
+    N("N", NorthOrientedInstruction.newInstance()),
+    E("E", EastOrientedInstruction.newInstance()),
+    S("S", SouthOrientedInstruction.newInstance()),
+    W("W", WestOrientedInstruction.newInstance());
 
-    @Getter
     private String value;
-    private String left;
-    private String right;
+    private OrientedInstruction instruction;
 }

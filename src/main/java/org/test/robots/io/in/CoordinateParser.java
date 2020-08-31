@@ -14,7 +14,7 @@ public class CoordinateParser implements Parser<String, Integer> {
 
     public Integer parse(@NonNull final String coordinate) {
         return Optional.of(coordinate)
-                .map(Integer::valueOf)
+                .map(Integer::parseInt)
                 .filter(c -> c >= MIN_COORDINATE_VALUE && c <= MAX_COORDINATE_VALUE)
                 .orElseThrow(ParseException::newCoordinateLimitException);
     }
