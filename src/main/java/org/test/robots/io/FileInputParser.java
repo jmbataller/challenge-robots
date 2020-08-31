@@ -1,11 +1,26 @@
 package org.test.robots.io;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.test.robots.domain.Pair;
 import org.test.robots.domain.input.RobotsListInput;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface FileInputParser extends Parser<String, RobotsListInput> {
+@Component
+@RequiredArgsConstructor
+public class FileInputParser implements Parser<String, RobotsListInput> {
+
+    private static int GRID_SIZE_LINE = 0;
+    private static int LINES_PER_ROBOT = 3;
+    private static int POSITION_LINE = 0;
+    private static int INSTRUCTIONS_LINE = 1;
+
+    private final FileInputStringParser fileInputStringParser;
+    private final GridSizeParser gridSizeParser;
+    private final RobotInputParser robotInputParser;
 
     /**
      * Expects absolute path filename and parses the input file into a list of String lines
@@ -13,10 +28,43 @@ public interface FileInputParser extends Parser<String, RobotsListInput> {
      * @param filename
      * @return
      */
-    @Override
-    default RobotsListInput parse(String filename) throws IOException {
-        List<String> lines = FileInputStringParser.parse(filename);
-        var grid = GridSizeParser.parse(lines.get(0));
+    public RobotsListInput parse(String filename) throws IOException {
+        var lines = fileInputStringParser.parse(filename);
+
+        var grid = gridSizeParser.parse(lines.get(GRID_SIZE_LINE));
+        var pairList = groupByPairs(lines.subList(GRID_SIZE_LINE + 1, lines.size()));
+
         return null;
+    }
+
+    /**
+     * Groups robots lines and return a list of Pairs of [position, instruction]
+     *
+     * @param robotLines
+     * @return
+     */
+    private List<Pair<String, String>> groupByPairs(final List<String> robotLines) {
+        var lines = robotLines;
+        var pairList = new ArrayList<Pair<String, String>>();
+
+        while(isThereNextPair(lines)) {
+            pairList.add(extractNextPair(lines));
+            lines = robotLines.subList(LINES_PER_ROBOT, robotLines.size());
+        }
+
+        return pairList;
+    }
+
+    /**
+     * Groups the position and instruction lines of a robot in a Pair
+     * @param lines
+     * @return
+     */
+    private Pair<String, String> extractNextPair(final List<String> lines) {
+        return Pair.of(lines.get(POSITION_LINE), lines.get(INSTRUCTIONS_LINE));
+    }
+
+    private boolean isThereNextPair(final List<String> lines) {
+        return lines.size() > LINES_PER_ROBOT;
     }
 }

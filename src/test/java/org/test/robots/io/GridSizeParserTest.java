@@ -7,20 +7,25 @@ import org.test.robots.exceptions.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GridSizeParserTest {
+
+    private CoordinateParser mockCoordinateParser = mock(CoordinateParser.class);
+    private GridSizeParser underTest = new GridSizeParser(mockCoordinateParser);
 
     @Test
     @DisplayName("input is null")
     void testNullInput() {
-        assertThatThrownBy(() -> GridSizeParser.parse(null))
+        assertThatThrownBy(() -> underTest.parse(null))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     @DisplayName("input is empty")
     void testEmptyInput() {
-        assertThatThrownBy(() -> GridSizeParser.parse(""))
+        assertThatThrownBy(() -> underTest.parse(""))
                 .isInstanceOf(ParseException.class)
                 .hasMessage("Invalid grid size");
     }
@@ -28,7 +33,10 @@ public class GridSizeParserTest {
     @Test
     @DisplayName("input is valid")
     void testValidGridSize() {
-        assertThat(GridSizeParser.parse("5 3"))
+        when(mockCoordinateParser.parse("5")).thenReturn(5);
+        when(mockCoordinateParser.parse("3")).thenReturn(3);
+
+        assertThat(underTest.parse("5 3"))
                 .isEqualTo(Grid.size(5, 3));
     }
 
