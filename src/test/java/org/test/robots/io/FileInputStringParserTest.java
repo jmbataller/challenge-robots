@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class FileInputStringParserTest {
 
@@ -26,5 +27,12 @@ public class FileInputStringParserTest {
     @DisplayName("read valid file with 1 robot")
     void testRead1RobotFile() throws IOException {
         assertThat(underTest.parse(SAMPLE_FILE_ONE_ROBOT).size()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("attempt to read a file that doesn't exist")
+    void testReadNonExistingFile() {
+        assertThatThrownBy(() -> underTest.parse("invalid/file/path"))
+                .isInstanceOf(IOException.class);
     }
 }

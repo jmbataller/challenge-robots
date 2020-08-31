@@ -9,8 +9,7 @@ import org.test.robots.exceptions.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class PositionParserTest {
 
@@ -51,6 +50,9 @@ public class PositionParserTest {
 
         assertThatThrownBy(() -> underTest.parse("5 3 X"))
                 .isInstanceOf(IllegalArgumentException.class);
+
+        verify(mockCoordinateParser, times(1)).parse("5");
+        verify(mockCoordinateParser, times(1)).parse("3");
     }
 
     @Test
@@ -61,6 +63,9 @@ public class PositionParserTest {
 
         assertThat(underTest.parse("5 3 N"))
                 .isEqualTo(Position.with(Point.of(5, 3), Orientation.N));
+
+        verify(mockCoordinateParser, times(1)).parse("5");
+        verify(mockCoordinateParser, times(1)).parse("3");
     }
 
 }

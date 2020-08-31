@@ -2,13 +2,13 @@ package org.test.robots.io;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.test.robots.domain.Grid;
 import org.test.robots.exceptions.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GridSizeParserTest {
 
@@ -48,6 +48,8 @@ public class GridSizeParserTest {
 
         assertThat(underTest.parse("5 3"))
                 .isEqualTo(Grid.size(5, 3));
+        verify(mockCoordinateParser, times(1)).parse("5");
+        verify(mockCoordinateParser, times(1)).parse("3");
     }
 
 }

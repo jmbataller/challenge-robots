@@ -3,7 +3,6 @@ package org.test.robots.io;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.test.robots.domain.Pair;
-import org.test.robots.domain.input.RobotInput;
 import org.test.robots.domain.input.RobotsListInput;
 
 import java.io.IOException;
@@ -52,9 +51,9 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
         var lines = robotLines;
         var pairList = new ArrayList<Pair<String, String>>();
 
-        while(isThereNextPair(lines)) {
+        while (isThereNextPair(lines)) {
             pairList.add(extractNextPair(lines));
-            lines = robotLines.subList(LINES_PER_ROBOT, robotLines.size());
+            lines = lines.subList(LINES_PER_ROBOT, lines.size());
         }
 
         return pairList;
@@ -62,6 +61,7 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
 
     /**
      * Groups the position and instruction lines of a robot in a Pair
+     *
      * @param lines
      * @return
      */
@@ -70,6 +70,6 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
     }
 
     private boolean isThereNextPair(final List<String> lines) {
-        return lines.size() > LINES_PER_ROBOT;
+        return lines.size() >= LINES_PER_ROBOT;
     }
 }
