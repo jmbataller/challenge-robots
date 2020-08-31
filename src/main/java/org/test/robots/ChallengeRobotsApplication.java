@@ -5,16 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.test.robots.domain.Orientation;
-import org.test.robots.domain.Point;
-import org.test.robots.domain.Position;
-import org.test.robots.domain.input.RobotsListInput;
-import org.test.robots.domain.output.RobotOutput;
-import org.test.robots.domain.output.RobotsListOutput;
 import org.test.robots.io.in.FileInputParser;
 import org.test.robots.io.out.FileOutputSerialiser;
+import org.test.robots.services.RobotBatchProcessor;
 
-import java.util.List;
 import java.util.Objects;
 
 @SpringBootApplication
@@ -24,6 +18,7 @@ public class ChallengeRobotsApplication implements CommandLineRunner {
 
     private final FileInputParser fileInputParser;
     private final FileOutputSerialiser fileOutputSerialiser;
+    private final RobotBatchProcessor processor;
 
     public static void main(String[] args) {
         SpringApplication.run(ChallengeRobotsApplication.class, args);
@@ -38,19 +33,12 @@ public class ChallengeRobotsApplication implements CommandLineRunner {
         }
 
         var filename = args[0];
-        log.info("Filename is {}", filename);
-        RobotsListInput input = fileInputParser.parse(filename);
+        log.info("File to process: {}", filename);
 
-
-        // TODO: processor
-
-
-
-        RobotsListOutput output = RobotsListOutput.with(List.of(
-                RobotOutput.with(Position.with(Point.of(1, 1), Orientation.E), false),
-                RobotOutput.with(Position.with(Point.of(1, 1), Orientation.E), true)
-        ));
-
+        // parse input file
+        var input = fileInputParser.parse(filename);
+        // process batch of robot instructions
+        var output = processor.process(input);
         // save output file in the same folder as input file with `.out` extension
         fileOutputSerialiser.serialise(filename.concat(".out"), output);
     }
