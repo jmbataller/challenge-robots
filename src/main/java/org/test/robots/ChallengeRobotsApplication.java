@@ -1,5 +1,6 @@
 package org.test.robots;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +12,10 @@ import java.util.Objects;
 
 @SpringBootApplication
 @Slf4j
-public class ChallengeRobotsApplication implements CommandLineRunner, FileInputParser {
+@RequiredArgsConstructor
+public class ChallengeRobotsApplication implements CommandLineRunner {
+
+    private final FileInputParser fileInputParser;
 
     public static void main(String[] args) {
         SpringApplication.run(ChallengeRobotsApplication.class, args);
@@ -27,7 +31,7 @@ public class ChallengeRobotsApplication implements CommandLineRunner, FileInputP
 
         var filename = args[0];
         log.info("Filename is {}", filename);
-        parse(filename);
+        fileInputParser.parse(filename);
 
     }
 }

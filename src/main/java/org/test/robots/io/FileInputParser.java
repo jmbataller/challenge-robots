@@ -3,11 +3,13 @@ package org.test.robots.io;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.test.robots.domain.Pair;
+import org.test.robots.domain.input.RobotInput;
 import org.test.robots.domain.input.RobotsListInput;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -32,9 +34,12 @@ public class FileInputParser implements Parser<String, RobotsListInput> {
         var lines = fileInputStringParser.parse(filename);
 
         var grid = gridSizeParser.parse(lines.get(GRID_SIZE_LINE));
-        var pairList = groupByPairs(lines.subList(GRID_SIZE_LINE + 1, lines.size()));
+        var robotInputList = groupByPairs(lines.subList(GRID_SIZE_LINE + 1, lines.size()))
+                .stream()
+                .map(robotInputParser::parse)
+                .collect(Collectors.toList());
 
-        return null;
+        return RobotsListInput.with(grid, robotInputList);
     }
 
     /**
